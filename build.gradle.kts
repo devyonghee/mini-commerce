@@ -11,7 +11,7 @@ plugins {
 }
 
 allprojects {
-    group = "com.yongpang"
+    group = "me.devyonghee"
     version = "0.0.1-SNAPSHOT"
 
     repositories {
