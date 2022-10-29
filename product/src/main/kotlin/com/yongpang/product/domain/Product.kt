@@ -5,15 +5,29 @@ import javax.persistence.*
 
 @Entity
 class Product(
+    name: ProductName,
+    price: ProductPrice
+) : AbstractTimestampEntity() {
+
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long,
+    var id: Long? = null
+        private set
 
     @Embedded
-    private val name: ProductName,
+    var name = name
+        private set
 
     @Embedded
-    private val price: ProductPrice,
-) : AbstractTimestampEntity() {
+    var price = price
+        private set
+
+    fun updateName(name: ProductName) {
+        this.name = name
+    }
+
+    fun updatePrice(price: ProductPrice) {
+        this.price = price
+    }
 }

@@ -1,0 +1,10 @@
+CREATE TABLE product
+(
+    id         BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name       VARCHAR(100)   NOT NULL,
+    price      DECIMAL(10, 2) NOT NULL,
+    created_at TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(255) NULL,
+    updated_at TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_by VARCHAR(255) NULL,
+);

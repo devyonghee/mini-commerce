@@ -5,11 +5,11 @@ import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
-class ProductPrice(
+data class ProductPrice(
     @Column(nullable = false)
-    private val price: BigDecimal
+    val price: BigDecimal
 ) {
     init {
-        require(price > BigDecimal.ZERO) { "상품 가격은 0보다 커야 합니다." }
+        require(price > BigDecimal.ZERO) { "product price(${price}) must not be negative" }
     }
 }

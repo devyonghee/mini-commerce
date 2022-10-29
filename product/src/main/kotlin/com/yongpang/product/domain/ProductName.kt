@@ -9,6 +9,6 @@ class ProductName(
     val name: String
 ) {
     init {
-        require(name.isNotBlank()) { "상품 이름은 비어있을 수 없습니다." }
+        require(name.isNotBlank()) { "product name must not be blank" }
     }
 }
