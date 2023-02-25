@@ -1,12 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.0.3-SNAPSHOT"
+    id("org.springframework.boot") version "3.0.3"
     id("io.spring.dependency-management") version "1.1.0"
     id("org.asciidoctor.convert") version "2.4.0"
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
     kotlin("plugin.jpa") version "1.7.22"
+    id("org.jlleitschuh.gradle.ktlint") version "11.2.0"
+    id("org.jlleitschuh.gradle.ktlint-idea") version "11.2.0"
 }
 
 group = "me.devyonghee"
@@ -18,6 +20,8 @@ repositories {
     maven { url = uri("https://repo.spring.io/milestone") }
     maven { url = uri("https://repo.spring.io/snapshot") }
 }
+
+val kotestVersion = "5.5.5"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -31,9 +35,11 @@ dependencies {
     testRuntimeOnly("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
 
-
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("io.mockk:mockk:1.13.4")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor")
 
