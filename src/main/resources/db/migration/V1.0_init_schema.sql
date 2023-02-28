@@ -29,3 +29,13 @@ CREATE TABLE order_product
     created_at DATETIME     NOT NULL,
     created_by varchar(255) NOT NULL,
 )
+
+
+CREATE TABLE member
+(
+    product_id BIGINT       NOT NULL,
+    quantity   BIGINT       NOT NULL,
+    order_id   BIGINT       NOT NULL,
+    created_at DATETIME     NOT NULL,
+    created_by varchar(255) NOT NULL,
+)

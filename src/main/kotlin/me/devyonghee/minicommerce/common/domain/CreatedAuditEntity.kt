@@ -7,7 +7,7 @@ import java.time.Instant
 
 
 @MappedSuperclass
-open abstract class CreatedAuditEntity {
+abstract class CreatedAuditEntity {
 
     @CreatedDate
     lateinit var createdAt: Instant
