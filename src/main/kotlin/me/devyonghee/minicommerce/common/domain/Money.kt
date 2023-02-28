@@ -17,4 +17,12 @@ class Money(
     }
 
     private fun isZeroOrPositive(): Boolean = amount >= 0
+
+    operator fun times(quantity: Int): Money {
+        return Money(amount * quantity)
+    }
+
+    operator fun plus(money: Money): Money {
+        return Money(amount + money.amount)
+    }
 }
