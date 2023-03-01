@@ -5,7 +5,7 @@ import jakarta.persistence.Embeddable
 
 @Embeddable
 class PhoneNumber(
-    @Column
+    @Column(length = 11, nullable = false)
     private val number: String
 ) {
     init {

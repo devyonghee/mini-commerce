@@ -1,4 +1,4 @@
-package me.devyonghee.minicommerce.config
+package me.devyonghee.minicommerce.config.exception
 
 import me.devyonghee.minicommerce.common.exception.CommerceException
 import me.devyonghee.minicommerce.common.exception.ErrorCode

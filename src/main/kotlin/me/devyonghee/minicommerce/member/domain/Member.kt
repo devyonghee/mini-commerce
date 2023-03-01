@@ -1,6 +1,7 @@
 package me.devyonghee.minicommerce.member.domain
 
 import jakarta.persistence.*
+import me.devyonghee.minicommerce.common.domain.Email
 
 @Entity
 class Member(
@@ -12,6 +13,13 @@ class Member(
     var address: Address,
     @Embedded
     var phoneNumber: PhoneNumber,
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    @ElementCollection(targetClass = Role::class)
+    @CollectionTable(name = "member_role", joinColumns = [JoinColumn(name = "member_id")])
+    var roles: List<Role> = listOf(Role.CUSTOMER),
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
