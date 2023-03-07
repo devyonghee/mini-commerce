@@ -1,17 +1,20 @@
-package me.devyonghee.minicommerce.member.domain
+package me.devyonghee.minicommerce.common.domain
 
 import jakarta.persistence.Column
 import jakarta.persistence.Embeddable
 
 @Embeddable
-class Email(
-    @Column
+data class Email(
+    @Column(nullable = false)
     private val email: String
 ) {
     init {
         require(email.isNotBlank()) { "email must not be blank" }
         require(email.matches(EMAIL_FORMAT)) { "email($email) must be in the format of email format" }
+    }
 
+    override fun toString(): String {
+        return email
     }
 
     companion object {
