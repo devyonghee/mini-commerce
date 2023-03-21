@@ -1,3 +1,5 @@
+rootProject.name = "mini-commerce"
+
 pluginManagement {
     repositories {
         maven { url = uri("https://repo.spring.io/milestone") }
@@ -5,4 +7,9 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-rootProject.name = "mini-commerce"
+
+include("minicommerce")
+include("product")
+include("order")
+include("common")
+include("member")
