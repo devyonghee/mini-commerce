@@ -1,7 +1,7 @@
 package me.devyonghee.member.domain
 
 import jakarta.persistence.*
-import me.devyonghee.minicommerce.common.domain.Email
+import me.devyonghee.common.domain.Email
 
 @Entity
 class Member(

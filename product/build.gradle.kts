@@ -1,5 +1,5 @@
 plugins {
-    kotlin("plugin.jpa") version "1.8.10"
+    kotlin("plugin.jpa")
 }
 
 dependencies {

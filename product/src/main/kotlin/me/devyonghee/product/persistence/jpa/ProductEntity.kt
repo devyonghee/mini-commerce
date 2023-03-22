@@ -2,7 +2,9 @@ package me.devyonghee.product.persistence.jpa
 
 import me.devyonghee.common.domain.Money
 import me.devyonghee.product.domain.Product
+import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import java.time.LocalDateTime
 
@@ -14,8 +16,14 @@ class ProductEntity(
     @CreatedDate
     lateinit var createdAt: LocalDateTime
 
+    @CreatedBy
+    lateinit var createdBy: String
+
     @LastModifiedDate
     lateinit var updatedAt: LocalDateTime
+
+    @LastModifiedBy
+    lateinit var updatedBy: String
 
     constructor(product: Product) : this(
         product.name,

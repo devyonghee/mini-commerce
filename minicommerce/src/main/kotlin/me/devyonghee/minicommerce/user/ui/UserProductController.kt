@@ -1,6 +1,5 @@
 package me.devyonghee.minicommerce.user.ui
 
-import me.devyonghee.minicommerce.product.application.ProductService
 import me.devyonghee.minicommerce.user.ui.response.ProductResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("v1/products")
-class ProductController(
+class UserProductController(
     private val productService: ProductService
 ) {
 
