@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service
 class ProductService(
     private val productRepository: ProductRepository
 ) {
+
     fun products(pageable: Pageable): Page<Product> {
         return productRepository.findAll(pageable)
     }

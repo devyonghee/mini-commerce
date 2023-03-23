@@ -1,4 +1,5 @@
 plugins {
+    kotlin("plugin.spring")
     id("org.asciidoctor.convert") version "2.4.0"
 }
 

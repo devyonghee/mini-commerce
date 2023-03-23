@@ -1,12 +1,9 @@
 package me.devyonghee.member.domain
 
-import jakarta.persistence.Embeddable
-
-@Embeddable
 class Address(
-    private val address: String,
-    private val addressDetail: String,
-    private val postCode: String,
+    val address: String,
+    val addressDetail: String,
+    val postCode: String,
 ) {
     init {
         require(address.isNotBlank()) { "address must not be blank" }

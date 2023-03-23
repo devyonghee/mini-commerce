@@ -1,11 +1,6 @@
 package me.devyonghee.member.domain
 
-import jakarta.persistence.Column
-import jakarta.persistence.Embeddable
-
-@Embeddable
 class PhoneNumber(
-    @Column(name = "phone_number", length = 11, nullable = false)
     private val number: String
 ) {
     init {

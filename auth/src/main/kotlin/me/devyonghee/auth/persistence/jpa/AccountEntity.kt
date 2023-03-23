@@ -1,7 +1,6 @@
 package me.devyonghee.auth.persistence.jpa
 
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
+import jakarta.persistence.*
 import me.devyonghee.auth.model.Account
 import me.devyonghee.auth.model.Role
 import me.devyonghee.common.domain.Email
@@ -15,13 +14,16 @@ class AccountEntity(
     private val email: String,
     private val password: String,
     @Enumerated(EnumType.STRING)
-    private val role: Role,
+    @Column(length = 20, nullable = false)
+    @ElementCollection(targetClass = Role::class)
+    @CollectionTable(name = "member_role", joinColumns = [JoinColumn(name = "member_id")])
+    var roles: List<Role> = listOf(),
     private val id: Long = 0,
 ) {
     constructor(account: Account) : this(
         account.email.toString(),
         account.password,
-        account.role,
+        account.roles,
     )
 
     @CreatedDate
@@ -40,7 +42,7 @@ class AccountEntity(
         return Account(
             Email(email),
             password,
-            role,
+            roles,
             id,
             createdAt,
             updatedAt

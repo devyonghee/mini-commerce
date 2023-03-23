@@ -9,16 +9,16 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class AccountDao(
-    private val accountEntityRepository: AccountEntityRepository
+    private val jpaRepository: AccountEntityRepository
 ) : AccountRepository {
 
     override fun save(account: Account): Account {
-        return accountEntityRepository.save(AccountEntity(account))
+        return jpaRepository.save(AccountEntity(account))
             .toDomain()
     }
 
     override fun findByEmail(email: Email): Account? {
-        return accountEntityRepository.findByEmail(email.toString())
+        return jpaRepository.findByEmail(email.toString())
             ?.toDomain()
     }
 
