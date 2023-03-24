@@ -6,10 +6,11 @@ import org.springframework.http.ProblemDetail
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
 
 @RestControllerAdvice
-class RestControllerAdvice {
+class RestControllerAdvice : ResponseEntityExceptionHandler() {
 
     private val log = LoggerFactory.getLogger(RestControllerAdvice::class.java)
 

@@ -1,6 +1,6 @@
 package me.devyonghee.commerce.application.customer.ui
 
-import me.devyonghee.minicommerce.MiniCommerceApplicationKtTest
+import me.devyonghee.commerce.application.MiniCommerceApplicationKtTest
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.test.web.servlet.MockMvc
