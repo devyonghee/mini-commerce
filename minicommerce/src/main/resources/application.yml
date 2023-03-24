@@ -1,13 +1,6 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    open-in-view: false
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-  datasource:
-    url: jdbc:mysql://localhost:3306/commerce
-    username: root
-    password: password
+  profiles:
+    active: local
+    include: datasource
+    group:
+      local: h2-db

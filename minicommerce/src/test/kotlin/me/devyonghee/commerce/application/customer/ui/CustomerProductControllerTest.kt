@@ -1,4 +1,4 @@
-package me.devyonghee.minicommerce.customer.ui
+package me.devyonghee.commerce.application.customer.ui
 
 import me.devyonghee.minicommerce.MiniCommerceApplicationKtTest
 import org.junit.jupiter.api.Test
