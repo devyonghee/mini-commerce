@@ -8,10 +8,13 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":auth"))
+    implementation(project(":member"))
     implementation(project(":product"))
-//    implementation(project(":common"))
+    implementation(project(":common"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     implementation("org.springframework.boot:spring-boot-starter-security")
@@ -20,7 +23,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-mysql")
     runtimeOnly("com.mysql:mysql-connector-j")
-    testRuntimeOnly("com.h2database:h2")
+    runtimeOnly("com.h2database:h2")
 
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
