@@ -10,7 +10,8 @@ import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import java.time.LocalDateTime
 
-class AccountEntity(
+@Entity(name = "account")
+internal class AccountEntity(
     private val email: String,
     private val password: String,
     @Enumerated(EnumType.STRING)
@@ -18,6 +19,7 @@ class AccountEntity(
     @ElementCollection(targetClass = Role::class)
     @CollectionTable(name = "member_role", joinColumns = [JoinColumn(name = "member_id")])
     var roles: List<Role> = listOf(),
+    @Id
     private val id: Long = 0,
 ) {
     constructor(account: Account) : this(

@@ -7,7 +7,7 @@ import me.devyonghee.commerce.common.domain.Email
 import org.springframework.stereotype.Repository
 
 @Repository
-class AccountDao(
+internal class AccountDao(
     private val jpaRepository: AccountEntityRepository
 ) : AccountRepository {
 

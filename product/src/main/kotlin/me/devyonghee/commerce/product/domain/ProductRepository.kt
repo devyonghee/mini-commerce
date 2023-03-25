@@ -10,4 +10,6 @@ interface ProductRepository {
     fun findById(id: Long): Product?
 
     fun findAll(pageable: Pageable): Page<Product>
+
+    fun update(id: Long, product: Product): Product
 }

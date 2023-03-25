@@ -5,8 +5,10 @@ import me.devyonghee.commerce.member.domain.MemberRepository
 import me.devyonghee.commerce.member.persistence.jpa.MemberEntity
 import me.devyonghee.commerce.member.persistence.jpa.MemberEntityRepository
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Repository
 
-class MemberDao(
+@Repository
+internal class MemberDao(
     private val jpaRepository: MemberEntityRepository
 ) : MemberRepository {
 

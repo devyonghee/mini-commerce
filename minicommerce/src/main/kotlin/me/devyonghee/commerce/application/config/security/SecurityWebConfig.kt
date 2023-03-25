@@ -19,7 +19,8 @@ class SecurityWebConfig {
         successHandler: AuthenticationSuccessHandler,
         failureHandler: AuthenticationFailureHandler
     ): SecurityFilterChain {
-        return http.csrf().disable()
+        return http.httpBasic().and()
+            .csrf().disable()
             .formLogin()
             .loginProcessingUrl("/v1/login")
             .successHandler(successHandler)
@@ -28,6 +29,7 @@ class SecurityWebConfig {
             .and()
             .userDetailsService(userDetailsService)
             .authorizeHttpRequests()
+            .requestMatchers("/v1/login").permitAll()
             .requestMatchers("/customer/v1/**").permitAll()
             .requestMatchers("/admin/v1/**").hasRole(Role.ADMIN.name)
             .and()

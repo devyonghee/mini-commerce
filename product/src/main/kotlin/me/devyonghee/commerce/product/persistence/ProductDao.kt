@@ -26,4 +26,10 @@ internal class ProductDao(
         return productEntityRepository.findAll(pageable)
             .map { it.toDomain() }
     }
+
+    override fun update(id: Long, product: Product): Product {
+        return productEntityRepository.findByIdOrNull(id)?.apply {
+            change(product)
+        }?.toDomain() ?: throw NoSuchElementException()
+    }
 }

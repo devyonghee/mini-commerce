@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service
 class ProductService(
     private val productRepository: ProductRepository
 ) {
-
     fun create(product: Product): Product {
         return productRepository.save(product)
     }
@@ -21,5 +20,11 @@ class ProductService(
 
     fun product(id: Long): Product {
         return productRepository.findById(id) ?: throw NoSuchElementException()
+    }
+
+    fun update(id: Long, product: Product): Product {
+        return productRepository.findById(id)?.run {
+            productRepository.update(id, product)
+        } ?: throw NoSuchElementException()
     }
 }

@@ -21,10 +21,13 @@ class AdminProductController(
         return ResponseEntity.created(URI("/admin/v1/products/${product.id}")).body(product)
     }
 
-    @PostMapping("/admin/v1/products")
-    fun update(@Validated @RequestBody request: ProductRequest): ResponseEntity<AdminProductResponse> {
-        val product = adminProductService.create(request)
-        return ResponseEntity.created(URI("/admin/v1/products/${product.id}")).body(product)
+    @PutMapping("/admin/v1/products/{id}")
+    fun update(
+        @PathVariable id: Long,
+        @Validated @RequestBody request: ProductRequest
+    ): ResponseEntity<AdminProductResponse> {
+        adminProductService.update(id, request)
+        return ResponseEntity.noContent().build()
     }
 
     @GetMapping("/admin/v1/products/{id}")

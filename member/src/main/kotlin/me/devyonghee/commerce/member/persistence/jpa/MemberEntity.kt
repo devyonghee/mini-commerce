@@ -10,7 +10,7 @@ import me.devyonghee.commerce.member.domain.Member
 import me.devyonghee.commerce.member.domain.PhoneNumber
 
 @Entity
-class MemberEntity(
+internal class MemberEntity(
     var name: String,
     var email: String,
 

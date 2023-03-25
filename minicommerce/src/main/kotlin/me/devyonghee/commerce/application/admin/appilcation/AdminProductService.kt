@@ -26,4 +26,8 @@ class AdminProductService(
         return productService.products(page)
             .map { AdminProductResponse(it) }
     }
+
+    fun update(id: Long, request: ProductRequest) {
+        productService.update(id, request.toDomain())
+    }
 }

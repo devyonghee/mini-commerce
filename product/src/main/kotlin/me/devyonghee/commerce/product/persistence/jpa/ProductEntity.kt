@@ -1,5 +1,7 @@
 package me.devyonghee.commerce.product.persistence.jpa
 
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
 import me.devyonghee.commerce.common.domain.Money
 import me.devyonghee.commerce.product.domain.Product
 import org.springframework.data.annotation.CreatedBy
@@ -8,9 +10,11 @@ import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import java.time.LocalDateTime
 
-class ProductEntity(
+@Entity(name = "product")
+internal class ProductEntity(
     var name: String,
     var price: Long,
+    @Id
     var id: Long = 0,
 ) {
     @CreatedDate
@@ -29,6 +33,11 @@ class ProductEntity(
         product.name,
         product.price.amount
     )
+
+    fun change(product: Product) {
+        name = product.name
+        price = product.price.amount
+    }
 
     fun toDomain(): Product {
         return Product(

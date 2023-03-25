@@ -1,5 +1,6 @@
 plugins {
     kotlin("plugin.jpa")
+    kotlin("plugin.spring")
 }
 
 dependencies {
