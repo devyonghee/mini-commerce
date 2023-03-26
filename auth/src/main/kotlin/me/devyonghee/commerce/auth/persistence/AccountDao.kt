@@ -1,5 +1,6 @@
 package me.devyonghee.commerce.auth.persistence
 
+import me.devyonghee.commerce.auth.model.Account
 import me.devyonghee.commerce.auth.model.AccountRepository
 import me.devyonghee.commerce.auth.persistence.jpa.AccountEntity
 import me.devyonghee.commerce.auth.persistence.jpa.AccountEntityRepository
@@ -11,14 +12,13 @@ internal class AccountDao(
     private val jpaRepository: AccountEntityRepository
 ) : AccountRepository {
 
-    override fun save(account: me.devyonghee.commerce.auth.model.Account): me.devyonghee.commerce.auth.model.Account {
+    override fun save(account: Account): Account {
         return jpaRepository.save(AccountEntity(account))
             .toDomain()
     }
 
-    override fun findByEmail(email: Email): me.devyonghee.commerce.auth.model.Account? {
+    override fun findByEmail(email: Email): Account? {
         return jpaRepository.findByEmail(email.toString())
             ?.toDomain()
     }
-
 }

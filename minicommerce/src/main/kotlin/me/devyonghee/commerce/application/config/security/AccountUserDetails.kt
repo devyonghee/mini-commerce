@@ -11,7 +11,7 @@ class AccountUserDetails(
 
 
     override fun getAuthorities(): Collection<GrantedAuthority> {
-        return account.roles.map { SimpleGrantedAuthority(it.name) }
+        return account.roles.map { SimpleGrantedAuthority("ROLE_${it.name}") }
     }
 
     override fun getPassword(): String {

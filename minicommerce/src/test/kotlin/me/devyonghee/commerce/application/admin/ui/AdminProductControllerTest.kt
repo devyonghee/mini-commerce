@@ -1,56 +1,85 @@
 package me.devyonghee.commerce.application.admin.ui
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import io.kotest.core.spec.DisplayName
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.test.TestCase
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
-import io.kotest.matchers.string.shouldStartWith
-import io.restassured.RestAssured
-import io.restassured.RestAssured.preemptive
-import io.restassured.module.kotlin.extensions.Extract
-import io.restassured.module.kotlin.extensions.Given
-import io.restassured.module.kotlin.extensions.Then
-import io.restassured.module.kotlin.extensions.When
+import me.devyonghee.commerce.application.SUPER_ADMIN
 import me.devyonghee.commerce.application.admin.ui.request.ProductRequest
+import me.devyonghee.commerce.application.admin.ui.response.AdminProductResponse
+import me.devyonghee.commerce.application.config.security.AccountUserDetails
+import org.hamcrest.Matchers.notNullValue
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.web.server.LocalServerPort
-import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.get
+import org.springframework.test.web.servlet.post
+import org.springframework.test.web.servlet.put
 
+@SpringBootTest
+@AutoConfigureMockMvc
+@DisplayName("상품 관리 API 테스트")
+class AdminProductControllerTest(
+    private val mockMvc: MockMvc,
+    private val objectMapper: ObjectMapper
+) : StringSpec({
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AdminProductControllerTest : StringSpec() {
+    fun createdProduct(request: ProductRequest): AdminProductResponse {
+        val response = mockMvc.post("/admin/v1/products") {
+            with(user(AccountUserDetails(SUPER_ADMIN)))
+            contentType = MediaType.APPLICATION_JSON
+            content = objectMapper.writeValueAsString(request)
+        }.andReturn()
+            .response
+            .contentAsString
 
-    @LocalServerPort
-    private var port: Int = 0
-
-    override suspend fun beforeEach(testCase: TestCase) {
-        RestAssured.port = port
-        RestAssured.authentication = preemptive()
-            .basic("admin@admin.com", "admin")
+        return objectMapper.readValue(response, AdminProductResponse::class.java)
     }
 
-    init {
-        "상품 생성" {
-            val name = "test"
-            val price: Long = 1000
+    fun product(id: Long): AdminProductResponse {
+        val response = mockMvc.get("/admin/v1/products/$id") {
+            with(user(AccountUserDetails(SUPER_ADMIN)))
+            contentType = MediaType.APPLICATION_JSON
+        }.andReturn()
+            .response
+            .contentAsString
 
-            Given {
-                log().all()
-                body(ProductRequest(name, price))
+        return objectMapper.readValue(response, AdminProductResponse::class.java)
+    }
 
-            }.When {
-                post("/admin/v1/products")
-
-            }.Then {
-                statusCode(HttpStatus.CREATED.value())
-
-            }.Extract {
-                header("Location") shouldStartWith "/admin/v1/products/"
-                val jsonPath = body().jsonPath()
-                jsonPath.getLong("id") shouldNotBe null
-                jsonPath.getLong("name") shouldBe name
-                jsonPath.getLong("price") shouldBe price
+    "상품 생성" {
+        mockMvc.post("/admin/v1/products") {
+            with(user(AccountUserDetails(SUPER_ADMIN)))
+            contentType = MediaType.APPLICATION_JSON
+            content = """{"name": "test", "price": 1000}"""
+        }.andExpect {
+            status { isCreated() }
+            content {
+                jsonPath("id") { notNullValue() }
             }
         }
     }
-}
+
+    "상품 수정" {
+        //given
+        val createdProduct: AdminProductResponse = createdProduct(ProductRequest("test", 1000))
+        val updatedName = "updatedName"
+        val updatedPrice = 2000
+        //when
+        mockMvc.put("/admin/v1/products/${createdProduct.id}") {
+            with(user(AccountUserDetails(SUPER_ADMIN)))
+            contentType = MediaType.APPLICATION_JSON
+            content = """{"name": "$updatedName", "price": $updatedPrice}"""
+        }.andExpect {
+            status { isNoContent() }
+        }
+
+        //then
+        product(createdProduct.id).run {
+            name shouldBe updatedName
+            price shouldBe updatedPrice
+        }
+    }
+})

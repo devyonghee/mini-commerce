@@ -27,6 +27,7 @@ class AdminProductService(
             .map { AdminProductResponse(it) }
     }
 
+    @Transactional
     fun update(id: Long, request: ProductRequest) {
         productService.update(id, request.toDomain())
     }

@@ -1,20 +1,22 @@
 package me.devyonghee.commerce.product.persistence.jpa
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import me.devyonghee.commerce.common.domain.Money
 import me.devyonghee.commerce.product.domain.Product
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
 
 @Entity(name = "product")
+@EntityListeners(value = [AuditingEntityListener::class])
 internal class ProductEntity(
     var name: String,
     var price: Long,
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 ) {
     @CreatedDate

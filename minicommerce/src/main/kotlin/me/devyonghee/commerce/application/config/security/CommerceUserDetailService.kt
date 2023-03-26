@@ -5,14 +5,16 @@ import me.devyonghee.commerce.common.domain.Email
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 
-@Component
+@Service
 class CommerceUserDetailService(
     private val accountService: AccountService
 ) : UserDetailsService {
 
+    @Transactional(readOnly = true)
     override fun loadUserByUsername(username: String): UserDetails {
         val email = Email(username)
         if (isNotExists(email)) {
