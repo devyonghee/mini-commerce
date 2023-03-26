@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.core.spec.DisplayName
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import me.devyonghee.commerce.application.CUSTOMER
 import me.devyonghee.commerce.application.SUPER_ADMIN
 import me.devyonghee.commerce.application.admin.ui.request.ProductRequest
 import me.devyonghee.commerce.application.admin.ui.response.AdminProductResponse
 import me.devyonghee.commerce.application.config.security.AccountUserDetails
+import org.hamcrest.Matchers.greaterThan
 import org.hamcrest.Matchers.notNullValue
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -80,6 +82,58 @@ class AdminProductControllerTest(
         product(createdProduct.id).run {
             name shouldBe updatedName
             price shouldBe updatedPrice
+        }
+    }
+
+    "상품 조회" {
+        //given
+        val createdProduct: AdminProductResponse = createdProduct(ProductRequest("test", 1000))
+        //when
+        mockMvc.get("/admin/v1/products/${createdProduct.id}") {
+            with(user(AccountUserDetails(SUPER_ADMIN)))
+            contentType = MediaType.APPLICATION_JSON
+        }.andExpect {
+            status { isOk() }
+            content {
+                jsonPath("id") { value(createdProduct.id) }
+                jsonPath("name") { value(createdProduct.name) }
+                jsonPath("price") { value(createdProduct.price) }
+                jsonPath("createdAt") { notNullValue() }
+                jsonPath("createdBy") { notNullValue() }
+                jsonPath("updatedAt") { notNullValue() }
+                jsonPath("updatedBy") { notNullValue() }
+            }
+        }
+    }
+
+    "상품 리스트 조회" {
+        //given
+        createdProduct(ProductRequest("test", 1000))
+        //when
+        mockMvc.get("/admin/v1/products") {
+            with(user(AccountUserDetails(SUPER_ADMIN)))
+            param("page", "0")
+            param("size", "10")
+            contentType = MediaType.APPLICATION_JSON
+        }.andExpect {
+            status { isOk() }
+            content {
+                jsonPath("content") { notNullValue() }
+                jsonPath("totalPages") { greaterThan(0) }
+                jsonPath("totalElements") { greaterThan(0) }
+                jsonPath("size") { value(10) }
+                jsonPath("empty") { value(false) }
+            }
+        }
+    }
+
+    "일반 유저는 상품을 등록할 수 없음" {
+        mockMvc.post("/admin/v1/products") {
+            with(user(AccountUserDetails(CUSTOMER)))
+            contentType = MediaType.APPLICATION_JSON
+            content = """{"name": "test", "price": 1000}"""
+        }.andExpect {
+            status { isForbidden() }
         }
     }
 })
