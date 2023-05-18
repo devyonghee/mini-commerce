@@ -9,6 +9,7 @@ pluginManagement {
 }
 
 include("minicommerce")
+include("discovery")
 include("product")
 include("order")
 include("common")
