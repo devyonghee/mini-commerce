@@ -1,4 +1,4 @@
-package me.devyonghee.filter
+package me.devyonghee.gateway.filter
 
 import org.slf4j.LoggerFactory
 import org.springframework.cloud.gateway.filter.GatewayFilter
@@ -28,8 +28,8 @@ class GlobalFilter : AbstractGatewayFilterFactory<GlobalFilter.Config>(Config::c
     }
 
     data class Config(
-        val baseMessage: String,
-        val preLogger: Boolean,
-        val postLogger: Boolean
+            val baseMessage: String,
+            val preLogger: Boolean,
+            val postLogger: Boolean
     )
 }

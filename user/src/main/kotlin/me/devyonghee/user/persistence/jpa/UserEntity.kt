@@ -11,10 +11,15 @@ class UserEntity(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private var id: Long,
+        @Column(nullable = false, unique = true)
         private var email: String,
+        @Column(nullable = false)
         private var name: String,
+        @Column(nullable = false)
         private var password: String,
+        @Column(nullable = false, unique = true)
         private var userId: UUID,
+        @Column(nullable = false, updatable = false)
         private var createdAt: LocalDateTime
 ) {
     constructor(user: User) : this(

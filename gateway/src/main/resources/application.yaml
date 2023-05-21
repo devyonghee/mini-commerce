@@ -4,6 +4,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+  instance:
+    status-page-url-path: /actuator/health
+
 
 spring:
   application:
@@ -17,10 +20,10 @@ spring:
             preLogger: true
             postLogger: true
       routes:
-        - id: first-service
-          uri: lb://MY-FIRST-SERVICE
+        - id: user-application
+          uri: lb://USER-APPLICATION
           predicates:
-            - Path=/first-service/**
+            - Path=/user-application/**
           filters:
             # - AddRequestHeader=first-request, first-requests-header
             # - AddResponseHeader=first-response, first-response-header
@@ -30,16 +33,9 @@ spring:
                 baseMessage: Logging Filter
                 preLogger: true
                 postLogger: true
-        - id: second-service
-          uri: lb://MY-SECOND-SERVICE
-          predicates:
-            - Path=/second-service/**
-          filters:
-            # - AddRequestHeader=second-request, second-requests-header
-            # - AddResponseHeader=second-response, second-response-header
-            - name: CustomFilter
-            - name: LoggingFilter
-              args:
-                baseMessage: Logging Filter
-                preLogger: true
-                postLogger: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

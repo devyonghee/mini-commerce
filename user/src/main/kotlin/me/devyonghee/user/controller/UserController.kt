@@ -5,9 +5,11 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 import me.devyonghee.user.domain.User
 import me.devyonghee.user.service.UserService
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import java.net.URI
 import java.time.LocalDateTime
 import java.util.*
 
@@ -17,8 +19,9 @@ class UserController(
 ) {
 
     @PostMapping("/users")
-    fun create(@RequestBody request: UserRequest): UserResponse {
-        return userService.create(request)
+    fun create(@RequestBody request: UserRequest): ResponseEntity<UserResponse> {
+        val response = userService.create(request)
+        return ResponseEntity.created(URI("/users/${response.userId}")).body(response)
     }
 
     data class UserRequest(
@@ -37,14 +40,12 @@ class UserController(
     )
 
     data class UserResponse(
-            val id: Long,
             val userId: UUID,
             val email: String,
             val name: String,
             val createdAt: LocalDateTime
     ) {
         constructor(user: User) : this(
-                id = user.id,
                 userId = user.userId,
                 email = user.email,
                 name = user.name,

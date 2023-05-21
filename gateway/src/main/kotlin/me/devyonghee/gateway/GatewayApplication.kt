@@ -1,11 +1,11 @@
-package me.devyonghee
+package me.devyonghee.gateway
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class DiscoveryApplication
+class GatewayApplication
 
 fun main(args: Array<String>) {
-    runApplication<DiscoveryApplication>(*args)
+    runApplication<GatewayApplication>(*args)
 }
