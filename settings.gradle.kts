@@ -8,12 +8,6 @@ pluginManagement {
     }
 }
 
-include("minicommerce")
 include("discovery")
-include("product")
-include("order")
-include("common")
-include("member")
-include("auth")
-include("user")
 include("gateway")
+include("user")
