@@ -2,7 +2,7 @@ server:
   port: 0
 spring:
   application:
-    name: user-application
+    name: user-service
   jpa:
     hibernate:
       ddl-auto: create-drop

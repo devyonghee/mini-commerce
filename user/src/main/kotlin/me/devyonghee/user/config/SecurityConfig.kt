@@ -20,7 +20,7 @@ class SecurityConfig {
                 .and()
                 .formLogin().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/users/**").permitAll()
+                .requestMatchers("/user-service/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .build()

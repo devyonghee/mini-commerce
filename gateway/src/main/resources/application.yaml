@@ -20,10 +20,10 @@ spring:
             preLogger: true
             postLogger: true
       routes:
-        - id: user-application
-          uri: lb://USER-APPLICATION
+        - id: user-service
+          uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-application/**
+            - Path=/user-service/**
           filters:
             # - AddRequestHeader=first-request, first-requests-header
             # - AddResponseHeader=first-response, first-response-header

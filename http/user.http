@@ -1,4 +1,4 @@
-POST http://localhost:8000/user-application/users
+POST http://localhost:8000/user-service/users
 Content-Type: application/json
 
 {
@@ -6,3 +6,13 @@ Content-Type: application/json
   "email": "email@email.com",
   "password": "passwordpassword"
 }
+
+###
+
+GET http://localhost:8000/user-service/users
+Content-Type: application/json
+
+###
+
+GET http://localhost:8000/user-service/users/3b1b8ac1-6eda-4f3b-acdd-8a8813f2e4c4
+Content-Type: application/json
