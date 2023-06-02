@@ -11,3 +11,4 @@ pluginManagement {
 include("discovery")
 include("gateway")
 include("user")
+include("catalog")
