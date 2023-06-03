@@ -14,25 +14,27 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@RequestMapping("/user-service")
 class UserController(
     private val userService: UserService
 ) {
 
-    @PostMapping("/user-service/users")
+    @PostMapping("/users")
     fun create(@RequestBody request: UserRequest): ResponseEntity<UserResponse> {
         val response = userService.create(request)
         return ResponseEntity.created(URI("/users/${response.userId}")).body(response)
     }
 
-    @GetMapping("/user-service/users/{userId}")
+    @GetMapping("/users/{userId}")
     fun user(@PathVariable userId: UUID): ResponseEntity<UserResponse> {
         return ResponseEntity.ok(userService.user(userId))
     }
 
-    @GetMapping("/user-service/users")
+    @GetMapping("/users")
     fun users(): ResponseEntity<Collection<UserResponse>> {
         return ResponseEntity.ok(userService.users())
     }

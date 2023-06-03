@@ -10,6 +10,10 @@ internal class CatalogDao(
     private val jpaRepository: CatalogJpaRepository
 ) : CatalogRepository {
 
+    override fun findAll(): Collection<Catalog> {
+        return jpaRepository.findAll().map { it.toDomain() }
+    }
+
     override fun findByProductId(productId: String): Catalog? {
         return jpaRepository.findByProductId(productId)?.toDomain()
     }

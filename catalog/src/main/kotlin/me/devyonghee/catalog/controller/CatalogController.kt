@@ -2,24 +2,37 @@ package me.devyonghee.catalog.controller
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import java.time.LocalDateTime
+import me.devyonghee.catalog.domain.Catalog
+import me.devyonghee.catalog.service.CatalogService
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class CatalogController {
+@RequestMapping("/catalog-service")
+class CatalogController(
+    private val catalogService: CatalogService
+) {
 
-    class CatalogRequest(
-        var productId: String,
-        var productName: String,
-        var stock: String,
-        var unitPrice: String,
-    )
+    @GetMapping("/catalogs")
+    fun catalogs(): Collection<CatalogResponse> {
+        return catalogService.catalogs()
+    }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    class CatalogResponse(
-        var productId: String,
-        var productName: String,
-        var unitPrice: String,
-        var stock: Int,
-        var createdAt: LocalDateTime,
-    )
+    data class CatalogResponse(
+        val productId: String,
+        val productName: String,
+        val stock: Int,
+        val unitPrice: Int,
+        val createdAt: LocalDateTime,
+    ) {
+        constructor(catalog: Catalog) : this(
+            productId = catalog.productId,
+            productName = catalog.productName,
+            unitPrice = catalog.unitPrice,
+            stock = catalog.stock,
+            createdAt = catalog.createdAt
+        )
+    }
 }

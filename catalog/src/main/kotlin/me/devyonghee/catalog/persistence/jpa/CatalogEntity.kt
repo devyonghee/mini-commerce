@@ -12,6 +12,7 @@ import me.devyonghee.catalog.domain.Catalog
 @Entity
 @Table(name = "catalog")
 class CatalogEntity(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long,
@@ -20,13 +21,12 @@ class CatalogEntity(
     @Column(nullable = false)
     private val productName: String,
     @Column(nullable = false)
-    private val stock: String,
+    private val stock: Int,
     @Column(nullable = false)
-    private val unitPrice: String,
+    private val unitPrice: Int,
     @Column(nullable = false, updatable = false)
     private val createdAt: LocalDateTime,
 ) {
-
     constructor(catalog: Catalog) : this(
         id = catalog.id,
         productId = catalog.productId,
