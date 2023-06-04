@@ -33,4 +33,8 @@ class UserService(
     fun users(): Collection<UserResponse> {
         return repository.findAll().map { UserResponse(it) }
     }
+
+    fun findByEmail(email: String): User? {
+        return repository.findByEmail(email)
+    }
 }

@@ -23,4 +23,8 @@ internal class UserDao(
     override fun findAll(): Collection<User> {
         return jpaRepository.findAll().map { it.toDomain() }
     }
+
+    override fun findByEmail(email: String): User? {
+        return jpaRepository.findByEmail(email)?.toDomain()
+    }
 }
