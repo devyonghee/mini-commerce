@@ -18,5 +18,4 @@ class UserDetailService(
 
         return User.builder().username(user.email).password(user.password).build()
     }
-
 }

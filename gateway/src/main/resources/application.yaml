@@ -33,6 +33,8 @@ spring:
                 baseMessage: Logging Filter
                 preLogger: true
                 postLogger: true
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
