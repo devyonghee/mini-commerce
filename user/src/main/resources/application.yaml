@@ -28,3 +28,7 @@ management:
       exposure:
         include: health
 
+token:
+  secret: secret
+  expiration: 86400000
+
