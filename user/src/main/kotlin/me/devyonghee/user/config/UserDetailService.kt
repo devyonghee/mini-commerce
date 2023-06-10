@@ -16,6 +16,6 @@ class UserDetailService(
         val user: me.devyonghee.user.domain.User = (userService.findByEmail(username)
             ?: throw UsernameNotFoundException("username password is not matched"))
 
-        return User.builder().username(user.email).password(user.password).build()
+        return User(user.email, user.password, emptyList())
     }
 }

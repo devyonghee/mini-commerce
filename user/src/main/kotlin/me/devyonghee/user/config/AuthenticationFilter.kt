@@ -4,19 +4,21 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 class AuthenticationFilter(
-    private val objectMapper: ObjectMapper
-) : UsernamePasswordAuthenticationFilter() {
+    private val objectMapper: ObjectMapper,
+    authenticationManager: AuthenticationManager
+) : UsernamePasswordAuthenticationFilter(authenticationManager) {
 
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         val credential: LoginRequest = objectMapper.readValue(request.inputStream, LoginRequest::class.java)
 
         return authenticationManager.authenticate(
-            UsernamePasswordAuthenticationToken(
+            UsernamePasswordAuthenticationToken.unauthenticated(
                 credential.email,
                 credential.password
             )
@@ -26,7 +28,6 @@ class AuthenticationFilter(
     override fun successfulAuthentication(
         request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain, authResult: Authentication
     ) {
-
     }
 
     data class LoginRequest(
