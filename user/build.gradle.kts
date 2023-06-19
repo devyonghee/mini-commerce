@@ -17,5 +17,4 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     implementation("io.jsonwebtoken:jjwt-api:0.11.2")
-
 }

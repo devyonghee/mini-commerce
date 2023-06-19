@@ -6,8 +6,8 @@ import org.springframework.cloud.gateway.route.builder.filters
 import org.springframework.cloud.gateway.route.builder.routes
 import org.springframework.context.annotation.Bean
 
-//application.yml에 설정한 라우팅 정보를 코드로 작성
-//@Configuration
+// application.yml에 설정한 라우팅 정보를 코드로 작성
+// @Configuration
 class FilterConfiguration {
 
     @Bean

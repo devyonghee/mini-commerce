@@ -21,11 +21,13 @@ class LoggingFilter : AbstractGatewayFilterFactory<LoggingFilter.Config>(Config:
                 logger.info("Logging PRE filter start: request id -> {}", exchange.request.id)
             }
 
-            chain.filter(exchange).then(Mono.fromRunnable {
-                if (config.postLogger) {
-                    logger.info("Logging POST filter: response status code -> {}", exchange.response.statusCode)
+            chain.filter(exchange).then(
+                Mono.fromRunnable {
+                    if (config.postLogger) {
+                        logger.info("Logging POST filter: response status code -> {}", exchange.response.statusCode)
+                    }
                 }
-            })
+            )
         }, Ordered.HIGHEST_PRECEDENCE)
     }
 

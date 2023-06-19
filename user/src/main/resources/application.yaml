@@ -29,6 +29,6 @@ management:
         include: health
 
 token:
-  secret: secret
-  expiration: 86400000
+  secret: user-token
+  expiration-time: 86400000 # 1 day
 

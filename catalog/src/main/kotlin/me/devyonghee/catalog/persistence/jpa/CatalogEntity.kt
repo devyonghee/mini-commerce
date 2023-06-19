@@ -6,8 +6,8 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import java.time.LocalDateTime
 import me.devyonghee.catalog.domain.Catalog
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "catalog")
@@ -25,7 +25,7 @@ class CatalogEntity(
     @Column(nullable = false)
     private val unitPrice: Int,
     @Column(nullable = false, updatable = false)
-    private val createdAt: LocalDateTime,
+    private val createdAt: LocalDateTime
 ) {
     constructor(catalog: Catalog) : this(
         id = catalog.id,

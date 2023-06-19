@@ -15,9 +15,11 @@ class CustomFilter : AbstractGatewayFilterFactory<CustomFilter.Config>(Config::c
         return GatewayFilter { exchange, chain ->
             logger.info("Custom PRE filter: request id -> {}", exchange.request.id)
 
-            chain.filter(exchange).then(Mono.fromRunnable {
-                logger.info("Custom POST filter: response status code -> {}", exchange.response.statusCode)
-            })
+            chain.filter(exchange).then(
+                Mono.fromRunnable {
+                    logger.info("Custom POST filter: response status code -> {}", exchange.response.statusCode)
+                }
+            )
         }
     }
 

@@ -1,11 +1,11 @@
 package me.devyonghee.order.persistence
 
-import java.util.UUID
 import me.devyonghee.order.domain.Order
 import me.devyonghee.order.domain.OrderRepository
 import me.devyonghee.order.persistence.jpa.OrderEntity
 import me.devyonghee.order.persistence.jpa.OrderJpaRepository
 import org.springframework.stereotype.Repository
+import java.util.UUID
 
 @Repository
 internal class OrderDao(

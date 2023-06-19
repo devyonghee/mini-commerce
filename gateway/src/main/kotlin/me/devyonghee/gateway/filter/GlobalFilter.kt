@@ -19,17 +19,19 @@ class GlobalFilter : AbstractGatewayFilterFactory<GlobalFilter.Config>(Config::c
                 logger.info("Global PRE filter start: request id -> {}", exchange.request.id)
             }
 
-            chain.filter(exchange).then(Mono.fromRunnable {
-                if (config.postLogger) {
-                    logger.info("Custom POST filter: response status code -> {}", exchange.response.statusCode)
+            chain.filter(exchange).then(
+                Mono.fromRunnable {
+                    if (config.postLogger) {
+                        logger.info("Custom POST filter: response status code -> {}", exchange.response.statusCode)
+                    }
                 }
-            })
+            )
         }
     }
 
     data class Config(
-            val baseMessage: String,
-            val preLogger: Boolean,
-            val postLogger: Boolean
+        val baseMessage: String,
+        val preLogger: Boolean,
+        val postLogger: Boolean
     )
 }

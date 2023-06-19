@@ -1,7 +1,7 @@
 package me.devyonghee.order.persistence.jpa
 
-import java.util.UUID
 import org.springframework.data.jpa.repository.JpaRepository
+import java.util.UUID
 
 internal interface OrderJpaRepository : JpaRepository<OrderEntity, Long> {
 

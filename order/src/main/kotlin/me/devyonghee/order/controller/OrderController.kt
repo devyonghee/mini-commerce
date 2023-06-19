@@ -1,9 +1,6 @@
 package me.devyonghee.order.controller
 
 import com.fasterxml.jackson.annotation.JsonInclude
-import java.net.URI
-import java.time.LocalDateTime
-import java.util.UUID
 import me.devyonghee.order.domain.Order
 import me.devyonghee.order.service.OrderService
 import org.springframework.http.ResponseEntity
@@ -13,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.net.URI
+import java.time.LocalDateTime
+import java.util.UUID
 
 @RestController
 @RequestMapping("/order-service")
@@ -35,14 +35,14 @@ class OrderController(
         val productId: String,
         val quantity: Int,
         val unitPrice: Int,
-        val userId: String,
+        val userId: String
     ) {
         fun toDomain(): Order {
             return Order(
                 productId = productId,
                 quantity = quantity,
                 unitPrice = unitPrice,
-                userId = userId,
+                userId = userId
             )
         }
     }
@@ -56,7 +56,7 @@ class OrderController(
         val totalPrice: Int,
         val userId: String,
         val orderId: UUID,
-        val createdAt: LocalDateTime,
+        val createdAt: LocalDateTime
     ) {
         constructor(order: Order) : this(
             id = order.id,

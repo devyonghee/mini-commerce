@@ -11,6 +11,5 @@ data class Order(
     val totalPrice: Int = quantity * unitPrice,
     val orderId: UUID = UUID.randomUUID(),
     val id: Long = 0,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
-) {
-}
+    val createdAt: LocalDateTime = LocalDateTime.now()
+)

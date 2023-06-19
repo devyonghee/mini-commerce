@@ -6,9 +6,9 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import me.devyonghee.order.domain.Order
 import java.time.LocalDateTime
 import java.util.UUID
-import me.devyonghee.order.domain.Order
 
 @Entity
 @Table(name = "orders")
@@ -32,7 +32,7 @@ class OrderEntity(
     private val orderId: UUID,
 
     @Column(nullable = false, updatable = false)
-    private val createdAt: LocalDateTime,
+    private val createdAt: LocalDateTime
 ) {
     constructor(order: Order) : this(
         id = order.id,

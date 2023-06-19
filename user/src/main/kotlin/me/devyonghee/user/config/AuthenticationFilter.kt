@@ -19,7 +19,7 @@ class AuthenticationFilter(
     private val objectMapper: ObjectMapper,
     private val userService: UserService,
     private val jwtProperty: JwtProperty,
-    authenticationManager: AuthenticationManager
+    authenticationManager: AuthenticationManager,
 ) : UsernamePasswordAuthenticationFilter(authenticationManager) {
 
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
@@ -34,16 +34,19 @@ class AuthenticationFilter(
     }
 
     override fun successfulAuthentication(
-        request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain, authResult: Authentication
+        request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain, authResult: Authentication,
     ) {
         val user: User =
             userService.findByEmail(authResult.name) ?: throw IllegalArgumentException("username is not exist")
 
-        Jwts.builder()
+        val token: String = Jwts.builder()
             .setSubject(user.userId.toString())
             .setExpiration(Date(System.currentTimeMillis() + jwtProperty.expirationTime))
             .signWith(Keys.hmacShaKeyFor(jwtProperty.secret.toByteArray()), SignatureAlgorithm.HS512)
             .compact()
+
+        response.addHeader("token", token)
+        response.addHeader("userId", user.userId.toString())
     }
 
     data class LoginRequest(
