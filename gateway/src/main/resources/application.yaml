@@ -23,22 +23,33 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-service/**
+            - Path=/user-service/users
+            - Method=POST
           filters:
-            # - AddRequestHeader=first-request, first-requests-header
-            # - AddResponseHeader=first-response, first-response-header
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+        - id: catalog-service
+          uri: lb://CATALOG-SERVICE
+          predicates:
+            - Path=/catalog-service/**
+          filters:
+            - AddRequestHeader=first-request, first-requests-header
+            - AddResponseHeader=first-response, first-response-header
             - name: CustomFilter
             - name: LoggingFilter
               args:
                 baseMessage: Logging Filter
                 preLogger: true
                 postLogger: true
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-        - id: catalog-service
-          uri: lb://CATALOG-SERVICE
-          predicates:
-            - Path=/catalog-service/**
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
@@ -49,3 +60,6 @@ management:
     web:
       exposure:
         include: health
+
+token:
+  secret: user-token
