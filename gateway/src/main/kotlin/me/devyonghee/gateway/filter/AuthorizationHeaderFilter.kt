@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono
 
 @Component
 class AuthorizationHeaderFilter(
-    private val jwtProperty: JwtProperty,
+    private val jwtProperty: JwtProperty
 ) : AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config>(Config::class.java) {
 
     private val logger = LoggerFactory.getLogger(AuthorizationHeaderFilter::class.java)
@@ -55,5 +55,5 @@ class AuthorizationHeaderFilter(
         }
     }
 
-     class Config
+    class Config
 }

@@ -7,19 +7,19 @@ import io.jsonwebtoken.security.Keys
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import java.util.Date
 import me.devyonghee.user.domain.User
 import me.devyonghee.user.service.UserService
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import java.util.Date
 
 class AuthenticationFilter(
     private val objectMapper: ObjectMapper,
     private val userService: UserService,
     private val jwtProperty: JwtProperty,
-    authenticationManager: AuthenticationManager,
+    authenticationManager: AuthenticationManager
 ) : UsernamePasswordAuthenticationFilter(authenticationManager) {
 
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
@@ -34,7 +34,10 @@ class AuthenticationFilter(
     }
 
     override fun successfulAuthentication(
-        request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain, authResult: Authentication,
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        chain: FilterChain,
+        authResult: Authentication
     ) {
         val user: User =
             userService.findByEmail(authResult.name) ?: throw IllegalArgumentException("username is not exist")
@@ -51,6 +54,6 @@ class AuthenticationFilter(
 
     data class LoginRequest(
         val email: String,
-        val password: String,
+        val password: String
     )
 }

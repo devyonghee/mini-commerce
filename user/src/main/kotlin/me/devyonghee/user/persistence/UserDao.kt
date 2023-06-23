@@ -1,11 +1,11 @@
 package me.devyonghee.user.persistence
 
-import java.util.UUID
 import me.devyonghee.user.domain.User
 import me.devyonghee.user.domain.UserRepository
 import me.devyonghee.user.persistence.jpa.UserEntity
 import me.devyonghee.user.persistence.jpa.UserJpaRepository
 import org.springframework.stereotype.Repository
+import java.util.UUID
 
 @Repository
 internal class UserDao(

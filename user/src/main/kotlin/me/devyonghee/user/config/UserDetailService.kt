@@ -13,8 +13,10 @@ class UserDetailService(
 ) : UserDetailsService {
 
     override fun loadUserByUsername(username: String): UserDetails {
-        val user: me.devyonghee.user.domain.User = (userService.findByEmail(username)
-            ?: throw UsernameNotFoundException("username password is not matched"))
+        val user: me.devyonghee.user.domain.User = (
+            userService.findByEmail(username)
+                ?: throw UsernameNotFoundException("username password is not matched")
+            )
 
         return User(user.email, user.password, emptyList())
     }

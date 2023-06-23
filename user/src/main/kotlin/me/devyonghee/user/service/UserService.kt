@@ -1,6 +1,5 @@
 package me.devyonghee.user.service
 
-import java.util.UUID
 import me.devyonghee.user.controller.UserController.UserRequest
 import me.devyonghee.user.controller.UserController.UserResponse
 import me.devyonghee.user.domain.User
@@ -8,6 +7,7 @@ import me.devyonghee.user.domain.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.UUID
 
 @Service
 class UserService(
